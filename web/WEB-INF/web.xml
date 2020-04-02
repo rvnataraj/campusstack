@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+     <filter>
+        <filter-name>authorizationFilter</filter-name>
+        <filter-class>CAMPS.Admin.authorizationFilter</filter-class>
+        <init-param>
+            <param-name>avoid-urls</param-name>
+            <param-value>welcomePage.jsp</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>authorizationFilter</filter-name>
+        <url-pattern>/JSP/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>checkLogin</servlet-name>
+        <servlet-class>CAMPS.Admin.authentication</servlet-class>
+    </servlet>
+	    <servlet-mapping>
+        <servlet-name>checkLogin</servlet-name>
+        <url-pattern>/checkLogin</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>CAMPS.Admin.logout</servlet-class>
+    </servlet>
+	 <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>changePassword</servlet-name>
+        <servlet-class>CAMPS.Admin.changePassword</servlet-class>
+    </servlet>
+	    <servlet-mapping>
+        <servlet-name>changePassword</servlet-name>
+        <url-pattern>/JSP/Welcome/changePassword.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>staff_Profile</servlet-name>
+        <servlet-class>CAMPS.Staff.staff_Profile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>student_details</servlet-name>
+        <servlet-class>CAMPS.Student.student_details</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>staff_Profile</servlet-name>
+        <url-pattern>/JSP/staff/staff_Profile.do</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>
+            CAMPS.Admin.SessionCounter
+        </listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>ErrorHandler</servlet-name>
+        <servlet-class>CAMPS.Admin.ErrorHandler</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ErrorHandler</servlet-name>
+        <url-pattern>/ErrorHandler</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type >
+        <location>/ErrorHandler</location>
+    </error-page>
+<error-page>
+  <exception-type>javax.servlet.ServletException</exception-type>
+  <location>/ErrorHandler</location>
+  </error-page>
+  <error-page>
+    <error-code>404</error-code>
+    <location>/JSP/Welcome/error404.jsp</location>
+</error-page>
+    
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config> 
+</web-app>
+
